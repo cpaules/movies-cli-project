@@ -1,17 +1,21 @@
 class CLI
 
   def call
+    scrape_movies
     list_movies
     menu
     bye
   end
 
-  def list_movies #scrapes and displays 15 movies in a numbered list,
+  def scrape_movies #scrapes 15 movies
     #movies should be an array of movie objects?
     puts "Enter your 5 digit zip code:"
     zipcode = gets.strip
-    #scraps 15 movies
-    #display movies
+
+  end
+
+  def list_movies #display in numbered list
+
   end
 
   def menu

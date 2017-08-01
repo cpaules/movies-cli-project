@@ -1,7 +1,7 @@
 class Movie
 
-  attr_accessor :name
-  attr_reader :rating, :director
+  attr_accessor :name, :director, :rating, :url
+  #attr_reader :rating, :director
 
   @@all = []
 
@@ -10,6 +10,20 @@ class Movie
     self.director=(director)
     self.rating=(rating)
     @@all << self
+  end
+
+  def director=(director)
+    if director
+      @director = director
+      director.add_movie(self)
+    end
+  end
+
+  def rating=(rating)
+    if rating
+      @rating = rating
+      rating.movies << self unless rating.movies.include?(self)
+    end
   end
 
   def self.all
