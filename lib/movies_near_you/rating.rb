@@ -1,4 +1,4 @@
-class Director
+class Rating
 
   attr_accessor :name, :rating
 
@@ -10,9 +10,9 @@ class Director
   end
 
   def create(name)
-    director = self.new(name)
+    rating = self.new(name)
     @@all << self
-    director
+    rating
   end
 
   def add_movie(movie)
