@@ -2,4 +2,4 @@
 
 require "./lib/environment"
 
-MoviesNearYou::CLI.new.call
+CLI.new.call

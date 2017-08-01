@@ -1,4 +1,4 @@
-class MoviesNearYou::CLI
+class CLI
 
   def call
     list_movies
@@ -6,10 +6,12 @@ class MoviesNearYou::CLI
     bye
   end
 
-  def list_movies #scrapes and displays movies in a numbered list,
+  def list_movies #scrapes and displays 15 movies in a numbered list,
     #movies should be an array of movie objects?
     puts "Enter your 5 digit zip code:"
     zipcode = gets.strip
+    #scraps 15 movies
+    #display movies
   end
 
   def menu
@@ -19,7 +21,7 @@ class MoviesNearYou::CLI
     input = nil
     while input != "exit"
       input = gets.strip.downcase
-      
+
     end
   end
 
