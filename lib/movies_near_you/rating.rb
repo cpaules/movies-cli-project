@@ -1,27 +1,32 @@
 class Rating
 
-  attr_accessor :name, :rating
+  attr_accessor :rating, :director
 
   @@all = []
 
-  def initialize(name)
-    @name = name
+  def initialize(rating)
+    @rating = rating.to_f
     @movies = []
+    @@all << self
   end
 
-  def create(name)
-    rating = self.new(name)
+  def create(rating)
+    rating = self.new(rating.to_i)
     @@all << self
     rating
   end
 
   def add_movie(movie)
     @movies << movie unless @movies.include?(movie)
-    movie.director = self unless movie.director
+    movie.rating = self unless movie.rating
   end
 
   def self.all
     @@all
+  end
+
+  def movies
+    @movies
   end
 
 end

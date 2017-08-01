@@ -11,11 +11,19 @@ class CLI
     #movies should be an array of movie objects?
     puts "Enter your 5 digit zip code:"
     zipcode = gets.strip
-
+    @movies_arr = []
+    nolan = Director.new("Christopher Nolan")
+    #nolan = "nolan"
+    dunkirk_rating = Rating.new("8.5")
+    #dunkirk_rating  = "8.5"
+    dunkirk = Movie.new("Dunkirk", nolan, dunkirk_rating)
+    @movies_arr << dunkirk
   end
 
   def list_movies #display in numbered list
-
+    @movies_arr.each.with_index(1) do |movie, index|
+      puts "#{index}. #{movie.name}"
+    end
   end
 
   def menu
@@ -25,7 +33,10 @@ class CLI
     input = nil
     while input != "exit"
       input = gets.strip.downcase
-
+      if input.to_i > 0
+        puts "Director - #{@movies_arr[input.to_i - 1].director.name}"
+        puts "IMDB rating - #{@movies_arr[input.to_i - 1].rating.rating}"
+      end
     end
   end
 

@@ -1,15 +1,17 @@
 class Director
 
   attr_accessor :name, :rating
+  attr_reader :movies
 
   @@all = []
 
   def initialize(name)
     @name = name
     @movies = []
+    @@all << self
   end
 
-  def create(name)
+  def create(name) #not working
     director = self.new(name)
     @@all << self
     director
