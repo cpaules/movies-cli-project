@@ -6,14 +6,17 @@ class CLI
     scrape_movies
     list_movies
     menu
-    #bye
+    bye
   end
 
-  def scrape_movies #scrapes 10 movies
-    #puts "Enter your 5 digit zip code:"
-    zipcode = "10009"#gets.strip
+  def scrape_movies #scrapes first 15 movies
+    puts "Welcome!"
+    puts "Enter your 5 digit zip code:"
+    zipcode = gets.strip
+    puts "Grabbing the first 15 movies!"
     movies_index = Nokogiri::HTML(open("http://www.imdb.com/showtimes/location/US/#{zipcode}"))
     @movies_arr = []
+    counter = 0
     movies_index.css(".lister-item").each do |movie|
       title = movie.css('.title').text
       movie_url = movie.css('.title a').attr('href').text
@@ -21,6 +24,10 @@ class CLI
       rating = Rating.new(movie_index.css('span.value').text)
       director = Director.new(movie_index.css('span[@itemprop*=director]').first.text.strip) #some movies have more than one director, so I only the first one
       @movies_arr << Movie.new(title, director, rating)
+      counter += 1
+      if counter > 14
+        break
+      end
     end
   end
 
