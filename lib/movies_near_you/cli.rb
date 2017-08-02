@@ -1,23 +1,28 @@
+require 'open-uri'
+
 class CLI
 
   def call
     scrape_movies
-    list_movies
-    menu
-    bye
+    #list_movies
+    #menu
+    #bye
   end
 
-  def scrape_movies #scrapes 15 movies
+  def scrape_movies #scrapes 10 movies
     #movies should be an array of movie objects?
-    puts "Enter your 5 digit zip code:"
-    zipcode = gets.strip
+    #puts "Enter your 5 digit zip code:"
+    zipcode = "10009"#gets.strip
+    movies_index = Nokogiri::HTML(open("http://www.imdb.com/showtimes/location/US/#{zipcode}"))
     @movies_arr = []
-    nolan = Director.new("Christopher Nolan")
-    #nolan = "nolan"
-    dunkirk_rating = Rating.new("8.5")
-    #dunkirk_rating  = "8.5"
-    dunkirk = Movie.new("Dunkirk", nolan, dunkirk_rating)
-    @movies_arr << dunkirk
+    movies_index.css(".lister-item").each do |movie|
+      title = movie.css('.title').text
+      movie_url = movie.css('.title a').attr('href').text
+      movie_index  = Nokogiri::HTML(open("http://www.imdb.com#{movie_url}"))
+      rating = Rating.new(movie_index.css('span.value').text)
+      director = Director.new(movie_index.css('span[@itemprop*=director]').first.text.strip) #some movies have more than one director, so I only the first one
+      @movies_arr << Movie.new(title, director, rating)
+    end
   end
 
   def list_movies #display in numbered list

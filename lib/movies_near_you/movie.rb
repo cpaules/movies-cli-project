@@ -1,7 +1,7 @@
 class Movie
 
-  attr_accessor :name, :director, :rating, :url
-  #attr_reader :rating, :director
+  attr_accessor :name, :url
+  attr_reader #:director, #:rating
 
   @@all = []
 
@@ -19,11 +19,19 @@ class Movie
     end
   end
 
+  def director
+    @director
+  end
+
   def rating=(rating)
     if rating
       @rating = rating
       rating.movies << self unless rating.movies.include?(self)
     end
+  end
+
+  def rating
+    @rating
   end
 
   def self.new_from_filename(filename)
