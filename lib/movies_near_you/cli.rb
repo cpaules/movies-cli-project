@@ -4,13 +4,12 @@ class CLI
 
   def call
     scrape_movies
-    #list_movies
-    #menu
+    list_movies
+    menu
     #bye
   end
 
   def scrape_movies #scrapes 10 movies
-    #movies should be an array of movie objects?
     #puts "Enter your 5 digit zip code:"
     zipcode = "10009"#gets.strip
     movies_index = Nokogiri::HTML(open("http://www.imdb.com/showtimes/location/US/#{zipcode}"))
@@ -39,6 +38,7 @@ class CLI
     while input != "exit"
       input = gets.strip.downcase
       if input.to_i > 0
+        puts "Title - #{@movies_arr[input.to_i - 1].name}"
         puts "Director - #{@movies_arr[input.to_i - 1].director.name}"
         puts "IMDB rating - #{@movies_arr[input.to_i - 1].rating.rating}"
       end
