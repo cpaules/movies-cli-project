@@ -15,7 +15,7 @@ class Movie
   def director=(director)
     if director
       @director = director
-      director.add_movie(self)
+      director.movie = self
     end
   end
 
@@ -26,7 +26,7 @@ class Movie
   def rating=(rating)
     if rating
       @rating = rating
-      rating.movies << self unless rating.movies.include?(self)
+      rating.movie = self
     end
   end
 

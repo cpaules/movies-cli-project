@@ -4,7 +4,7 @@ class CLI
 
   def call
     scrape_movies
-    list_movies
+    display_movies
     menu
     bye
   end
@@ -13,7 +13,7 @@ class CLI
     puts "Welcome!"
     puts "Enter your 5 digit zip code:"
     zipcode = gets.strip
-    puts "Grabbing the first 15 movies!"
+    puts "Grabbing the first 15 movies..."
     movies_index = Nokogiri::HTML(open("http://www.imdb.com/showtimes/location/US/#{zipcode}"))
     @movies_arr = []
     counter = 0
@@ -31,24 +31,49 @@ class CLI
     end
   end
 
-  def list_movies #display in numbered list
+  def display_movies #display in numbered list
     @movies_arr.each.with_index(1) do |movie, index|
       puts "#{index}. #{movie.name}"
     end
   end
 
   def menu
-    puts "Enter the number corresponding to which movie you would like to know more about, or enter exit to exit"
-    #should then ask what info would they like to see. ex imdb rating, genres, summary, showtimes
-    # when displaying showtimes, should display a list of theaters and their showtimes
+    puts "Options:"
+    puts "  - Enter the number corresponding to which movie you would like to know more about"
+    puts "  - Enter 'ratings' to see the list of movies sorted by rating from highest to lowest"
+    puts "  - Enter 'directors' to see the alphabetized list of directors along with their movie"
+    puts "  - Enter exit to exit"
+
     input = nil
     while input != "exit"
       input = gets.strip.downcase
       if input.to_i > 0
-        puts "Title - #{@movies_arr[input.to_i - 1].name}"
-        puts "Director - #{@movies_arr[input.to_i - 1].director.name}"
-        puts "IMDB rating - #{@movies_arr[input.to_i - 1].rating.rating}"
+        movie_details(input)
+      elsif input == "ratings"
+        list_ratings
+      elsif input == "directors"
+        list_directors
       end
+    end
+  end
+
+  def movie_details(input)
+    puts "Title - #{@movies_arr[input.to_i - 1].name}"
+    puts "Director - #{@movies_arr[input.to_i - 1].director.name}"
+    puts "IMDB rating - #{@movies_arr[input.to_i - 1].rating.rating}"
+  end
+
+  def list_ratings
+    sorted = Rating.all.sort { |a, b|  b.rating <=> a.rating}
+    sorted.each_with_index do |rating, index|
+      puts "#{index + 1}. #{rating.movie.name} - #{rating.rating}"
+    end
+  end
+
+  def list_directors
+    sorted = Director.all.sort { |a, b|  a.name <=> b.name}
+    sorted.each_with_index do |director, index|
+      puts "#{index + 1}. #{director.name} - #{director.movie.name}"
     end
   end
 

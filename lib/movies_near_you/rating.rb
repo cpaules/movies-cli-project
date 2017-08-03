@@ -1,6 +1,6 @@
 class Rating
 
-  attr_accessor :rating, :director
+  attr_accessor :rating, :director ,:movie
 
   @@all = []
 
@@ -8,12 +8,6 @@ class Rating
     @rating = rating.to_f
     @movies = []
     @@all << self
-  end
-
-  def create(rating)
-    rating = self.new(rating.to_i)
-    @@all << self
-    rating
   end
 
   def add_movie(movie)
