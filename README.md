@@ -1,8 +1,5 @@
 # MoviesNearYou
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/movies_near_you`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+MoviesNearYou is an app that scrapes movies from IMDB based on your location to display the users the top 15 movies based on popularity and different functions that display this list of movies according to their rating or director
 
 ## Installation
 
@@ -22,7 +19,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Type ./bin/movies-near-you to run
 
 ## Development
 
