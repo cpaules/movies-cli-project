@@ -42,6 +42,7 @@ class CLI
     puts "  - Enter the number corresponding to which movie you would like to know more about"
     puts "  - Enter 'ratings' to see the list of movies sorted by rating from highest to lowest"
     puts "  - Enter 'directors' to see the alphabetized list of directors along with their movie"
+    puts "  - Enter 'movies' to see the the numbered list of movies again"
     puts "  - Enter exit to exit"
 
     input = nil
@@ -53,6 +54,8 @@ class CLI
         list_ratings
       elsif input == "directors"
         list_directors
+      elsif input == "movies"
+        display_movies
       end
     end
   end
